@@ -9,8 +9,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         UserDaoInter userDao = new UserDaoImple();
         User u = userDao.getById(1);
-        u.setName("Efqan");
-        u.setName("Ramizov");
+        u.setName("Ulvi");
+        u.setName("Suleymanov");
         userDao.updateUser(u);
     }
 }
