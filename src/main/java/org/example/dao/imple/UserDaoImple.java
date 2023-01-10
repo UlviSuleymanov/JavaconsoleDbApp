@@ -48,8 +48,15 @@ public class UserDaoImple implements UserDaoInter {
 
     @Override
     public boolean removeUser(int id) {
-        return false;
+        try {
+            Statement statement = connect().createStatement();
+            return statement.execute("delete from user where id = 1");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
+
     public static Connection connect() throws Exception {
         Class.forName("com.mysql.cj.jdbc.Driver");
         String url = "jdbc:mysql://localhost:3306/resume";
