@@ -1,14 +1,15 @@
-package org.example.dao.imple;
+package dao.imple;
 
-import org.example.bean.User;
-import org.example.dao.inter.AbstractDao;
-import org.example.dao.inter.UserDaoInter;
+import bean.User;
+import dao.inter.AbstractDao;
+import dao.inter.UserDaoInter;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class UserDaoImple extends AbstractDao implements UserDaoInter {
     @Override
@@ -16,7 +17,12 @@ public class UserDaoImple extends AbstractDao implements UserDaoInter {
         List<User> result = new ArrayList<>();
         try (Connection connection = connect()) {
             Statement statement = connection.createStatement();
-            statement.execute("select * from user");
+            statement.execute("select u.*," +
+                    "       n.name         as nationality," +
+                    "       c.country_name as birthplace" +
+                    "from resume.user u" +
+                    "         left join resume.nationality n on u.nationality_id = n.id" +
+                    "         left join resume.nationality c on u.birthplace_id = c.id");
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -37,7 +43,12 @@ public class UserDaoImple extends AbstractDao implements UserDaoInter {
         User result = null;
         try (Connection connection = connect()) {
             Statement statement = connection.createStatement();
-            statement.execute("select * from user where id =" + userId);
+            statement.execute("select u.*," +
+                    "       n.name         as nationality," +
+                    "       c.country_name as birthplace" +
+                    "from resume.user u" +
+                    "         left join resume.nationality n on u.nationality_id = n.id" +
+                    "         left join resume.nationality c on u.birthplace_id = c.id where u.id=" +userId);
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -68,6 +79,21 @@ public class UserDaoImple extends AbstractDao implements UserDaoInter {
             return false;
         }
 
+    }
+
+    @Override
+    public boolean addUser(User u) {
+        try (Connection connection = connect()) {
+            PreparedStatement statement = connection.prepareStatement("insert into user(name,surname,email,phone) values(?,?,?,?)");
+            statement.setString(1, u.getName());
+            statement.setString(2, u.getSurname());
+            statement.setString(3, u.getEmail());
+            statement.setString(4, u.getPhone());
+            return statement.execute();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
     @Override

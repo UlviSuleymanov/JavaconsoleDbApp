@@ -1,4 +1,4 @@
-package org.example.bean;
+package bean;
 
 public class User {
     private int id;

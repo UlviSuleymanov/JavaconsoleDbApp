@@ -1,4 +1,4 @@
-package org.example.dao.inter;
+package dao.inter;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
