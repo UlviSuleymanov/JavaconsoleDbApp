@@ -1,6 +1,7 @@
 package bean;
 
 import java.sql.Date;
+import java.util.List;
 
 public class User {
     private int id;
@@ -9,8 +10,25 @@ public class User {
     private String email;
     private String phone;
     private Date birthDate;
-    private Nationality nationality;
-    private Nationality birthPlace;
+    private Country country;
+    private Country birthPlace;
+    private List<Skill> skills;
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public List<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
+    }
 
     public int getId() {
         return id;
@@ -60,33 +78,33 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public Nationality getNationality() {
-        return nationality;
+    public Country getNationality() {
+        return country;
     }
 
-    public void setNationality(Nationality nationality) {
-        this.nationality = nationality;
+    public void setNationality(Country country) {
+        this.country = country;
     }
 
-    public Nationality getBirthPlace() {
+    public Country getBirthPlace() {
         return birthPlace;
     }
 
-    public void setBirthPlace(Nationality birthPlace) {
+    public void setBirthPlace(Country birthPlace) {
         this.birthPlace = birthPlace;
     }
 
     public User() {
     }
 
-    public User(int id, String name, String surname, String email, String phone, Date birthDate, Nationality nationality, Nationality birthPlace) {
+    public User(int id, String name, String surname, String email, String phone, Date birthDate, Country country, Country birthPlace) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phone = phone;
         this.birthDate = birthDate;
-        this.nationality = nationality;
+        this.country = country;
         this.birthPlace = birthPlace;
     }
 
@@ -99,7 +117,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", birthDate=" + birthDate +
-                ", nationality=" + nationality +
+                ", nationality=" + country +
                 ", birthPlace=" + birthPlace +
                 '}';
     }
