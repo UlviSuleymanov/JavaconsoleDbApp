@@ -1,36 +1,45 @@
 package dao.imple;
 
+import bean.Nationality;
 import bean.User;
 import dao.inter.AbstractDao;
 import dao.inter.UserDaoInter;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImple extends AbstractDao implements UserDaoInter {
+    private User getuser(ResultSet rs) throws Exception {
+        int id = rs.getInt("id");
+        String name = rs.getString("name");
+        String surname = rs.getString("surname");
+        String phone = rs.getNString("phone");
+        String email = rs.getNString("email");
+        int nationalityId = rs.getInt("nationality_id");
+        int birthPlaceId = rs.getInt("birthplace_id");
+        String nationalityStr = rs.getString("nationality");
+        String birthPlaceStr = rs.getString("birthplace");
+        Date birthDate = rs.getDate("birthdate");
+        Nationality nationality = new Nationality(nationalityId, nationalityStr, null);
+        Nationality birthPlace = new Nationality(birthPlaceId, null, birthPlaceStr);
+        return new User(id, name, surname, email, phone, birthDate, nationality, birthPlace);
+    }
+
     @Override
     public List<User> getAll() {
         List<User> result = new ArrayList<>();
         try (Connection connection = connect()) {
             Statement statement = connection.createStatement();
-            statement.execute("select u.*," +
-                    "       n.name         as nationality," +
-                    "       c.country_name as birthplace" +
-                    "from resume.user u" +
-                    "         left join resume.nationality n on u.nationality_id = n.id" +
-                    "         left join resume.nationality c on u.birthplace_id = c.id");
+            statement.execute("select u.*, " +
+                    "n.name as nationality," +
+                    " c.country_name as birthplace from user u " +
+                    " left join nationality n  on u.nationality_id = n.id " +
+                    "left join nationality c on u.birthplace_id = c.id");
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String surname = resultSet.getString("surname");
-                String phone = resultSet.getNString("phone");
-                String email = resultSet.getNString("email");
-                result.add(new User(id, name, surname, email, phone));
+                User u = getuser(resultSet);
+                result.add(u);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -48,7 +57,7 @@ public class UserDaoImple extends AbstractDao implements UserDaoInter {
                     "       c.country_name as birthplace" +
                     "from resume.user u" +
                     "         left join resume.nationality n on u.nationality_id = n.id" +
-                    "         left join resume.nationality c on u.birthplace_id = c.id where u.id=" +userId);
+                    "         left join resume.nationality c on u.birthplace_id = c.id where u.id=" + userId);
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -56,7 +65,7 @@ public class UserDaoImple extends AbstractDao implements UserDaoInter {
                 String surname = resultSet.getString("surname");
                 String phone = resultSet.getNString("phone");
                 String email = resultSet.getNString("email");
-                result = new User(id, name, surname, email, phone);
+                result = getuser(resultSet);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

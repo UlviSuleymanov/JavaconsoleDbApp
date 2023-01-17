@@ -1,11 +1,16 @@
 package bean;
 
+import java.sql.Date;
+
 public class User {
     private int id;
     private String name;
     private String surname;
     private String email;
     private String phone;
+    private Date birthDate;
+    private Nationality nationality;
+    private Nationality birthPlace;
 
     public int getId() {
         return id;
@@ -47,15 +52,42 @@ public class User {
         this.phone = phone;
     }
 
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public Nationality getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(Nationality nationality) {
+        this.nationality = nationality;
+    }
+
+    public Nationality getBirthPlace() {
+        return birthPlace;
+    }
+
+    public void setBirthPlace(Nationality birthPlace) {
+        this.birthPlace = birthPlace;
+    }
+
     public User() {
     }
 
-    public User(int id, String name, String surname, String email, String phone) {
+    public User(int id, String name, String surname, String email, String phone, Date birthDate, Nationality nationality, Nationality birthPlace) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phone = phone;
+        this.birthDate = birthDate;
+        this.nationality = nationality;
+        this.birthPlace = birthPlace;
     }
 
     @Override
@@ -66,6 +98,9 @@ public class User {
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", birthDate=" + birthDate +
+                ", nationality=" + nationality +
+                ", birthPlace=" + birthPlace +
                 '}';
     }
 }
