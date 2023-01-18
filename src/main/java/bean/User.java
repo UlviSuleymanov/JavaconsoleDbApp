@@ -18,6 +18,10 @@ public class User {
         return country;
     }
 
+    public User(int id) {
+        this.id = id;
+    }
+
     public void setCountry(Country country) {
         this.country = country;
     }
