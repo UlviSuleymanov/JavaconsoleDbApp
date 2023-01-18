@@ -1,7 +1,7 @@
-package bean;
+package entity;
 
 public class UserSkill {
-    private int id;
+    private Integer id;
     private User user;
     private Skill skill;
     private int power;
@@ -9,18 +9,28 @@ public class UserSkill {
     public UserSkill() {
     }
 
-    public UserSkill(int id, User user, Skill skill, int power) {
+    public UserSkill(Integer id, User user, Skill skill, int power) {
         this.id = id;
         this.user = user;
         this.skill = skill;
         this.power = power;
     }
 
-    public int getId() {
+    @Override
+    public String toString() {
+        return "UserSkill{" +
+                "id=" + id +
+                ", user=" + user +
+                ", skill=" + skill +
+                ", power=" + power +
+                '}';
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

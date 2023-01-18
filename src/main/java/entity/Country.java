@@ -1,14 +1,17 @@
-package bean;
+package entity;
 
-public class Skill {
+public class Country {
     private int id;
     private String name;
+    private String nationality;
 
-    public Skill() {
+    public Country() {
     }
-    public Skill(int id, String name) {
+
+    public Country(int id, String name, String nationality) {
         this.id = id;
         this.name = name;
+        this.nationality = nationality;
     }
 
     public int getId() {
@@ -27,11 +30,20 @@ public class Skill {
         this.name = name;
     }
 
+    public String getNationalityName() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
     @Override
     public String toString() {
-        return "Skill{" +
+        return "Nationality{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", countryName='" + nationality + '\'' +
                 '}';
     }
 }

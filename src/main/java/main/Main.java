@@ -1,12 +1,11 @@
 package main;
 
-import bean.User;
-import dao.inter.UserDaoInter;
+import dao.inter.EmploymentHistoryDaoInter;
 
 
 public class Main {
     public static void main(String[] args) {
-        UserDaoInter userDaoInter = Context.instanceUserDao();
-        System.out.println(userDaoInter.getAll());
+        EmploymentHistoryDaoInter employmentHistoryDaoInter = Context.instanceEmploymentHistoryDao();
+        System.out.println(employmentHistoryDaoInter.getAllEmployementHistoryByUserId(1));
     }
 }

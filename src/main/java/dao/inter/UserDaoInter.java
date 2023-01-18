@@ -1,7 +1,7 @@
 package dao.inter;
 
-import bean.User;
-import bean.UserSkill;
+import entity.User;
+import entity.UserSkill;
 
 import java.util.List;
 
@@ -15,7 +15,5 @@ public interface UserDaoInter {
     public boolean addUser(User u);
 
     public boolean removeUser(int id);
-
-    public List<UserSkill> getAllSkillByUserId(int userId);
 
 }
