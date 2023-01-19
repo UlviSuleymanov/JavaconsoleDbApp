@@ -1,11 +1,12 @@
 package main;
 
-import dao.inter.EmploymentHistoryDaoInter;
+import dao.inter.SkillDaoInter;
 
 
 public class Main {
     public static void main(String[] args) {
-        EmploymentHistoryDaoInter employmentHistoryDaoInter = Context.instanceEmploymentHistoryDao();
-        System.out.println(employmentHistoryDaoInter.getAllEmployementHistoryByUserId(1));
+        SkillDaoInter skillDao = Context.instanceSkillDao();
+        System.out.println(skillDao.getAll());
+
     }
 }
