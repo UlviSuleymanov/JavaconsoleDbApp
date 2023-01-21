@@ -1,11 +1,9 @@
 package dao.imple;
 
-import entity.Country;
-import entity.Skill;
-import entity.User;
-import entity.UserSkill;
 import dao.inter.AbstractDao;
 import dao.inter.UserDaoInter;
+import entity.Country;
+import entity.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,6 +16,8 @@ public class UserDaoImple extends AbstractDao implements UserDaoInter {
         String surname = rs.getString("surname");
         String phone = rs.getNString("phone");
         String email = rs.getNString("email");
+        String adress = rs.getNString("adress");
+        String profileDescription = rs.getNString("profile_description");
         int nationalityId = rs.getInt("nationality_id");
         int birthPlaceId = rs.getInt("birthplace_id");
         String nationalityStr = rs.getString("nationality");
@@ -25,7 +25,7 @@ public class UserDaoImple extends AbstractDao implements UserDaoInter {
         Date birthDate = rs.getDate("birthdate");
         Country country = new Country(nationalityId, null, nationalityStr);
         Country birthPlace = new Country(birthPlaceId, birthPlaceStr, null);
-        return new User(id, name, surname, email, phone, birthDate, country, birthPlace);
+        return new User(id, name, profileDescription, adress, surname, email, phone, birthDate, country, birthPlace);
     }
 
 
@@ -73,12 +73,14 @@ public class UserDaoImple extends AbstractDao implements UserDaoInter {
     @Override
     public boolean updateUser(User u) {
         try (Connection connection = connect()) {
-            PreparedStatement statement = connection.prepareStatement("update user set name=?, surname=?, email=? ,phone =? where id=?");
+            PreparedStatement statement = connection.prepareStatement("update user set name=?, surname=?, email=?,profile_description=?, adress=? ,phone =? where id=?");
             statement.setString(1, u.getName());
             statement.setString(2, u.getSurname());
             statement.setString(3, u.getEmail());
             statement.setString(4, u.getPhone());
-            statement.setInt(5, u.getId());
+            statement.setString(5, u.getAdress());
+            statement.setString(6, u.getProfileDesc());
+            statement.setInt(7, u.getId());
             return statement.execute();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -90,11 +92,14 @@ public class UserDaoImple extends AbstractDao implements UserDaoInter {
     @Override
     public boolean addUser(User u) {
         try (Connection connection = connect()) {
-            PreparedStatement statement = connection.prepareStatement("insert into user(name,surname,email,phone) values(?,?,?,?)");
+            PreparedStatement statement = connection.prepareStatement("insert into user(name,surname,email,phone,profile_description,adress) values(?,?,?,?,?,?)");
             statement.setString(1, u.getName());
             statement.setString(2, u.getSurname());
             statement.setString(3, u.getEmail());
             statement.setString(4, u.getPhone());
+            statement.setString(5, u.getProfileDesc());
+            statement.setString(6, u.getAdress());
+
             return statement.execute();
         } catch (Exception ex) {
             ex.printStackTrace();

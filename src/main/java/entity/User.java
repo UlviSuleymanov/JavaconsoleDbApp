@@ -7,7 +7,9 @@ public class User {
     private int id;
     private String name;
     private String surname;
+    private String profileDesc;
     private String email;
+    private String adress;
     private String phone;
     private Date birthDate;
     private Country country;
@@ -20,6 +22,14 @@ public class User {
 
     public User(int id) {
         this.id = id;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
     }
 
     public void setCountry(Country country) {
@@ -101,7 +111,7 @@ public class User {
     public User() {
     }
 
-    public User(int id, String name, String surname, String email, String phone, Date birthDate, Country country, Country birthPlace) {
+    public User(int id, String name, String adress,String surname,String profileDesc, String email, String phone, Date birthDate, Country country, Country birthPlace) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -110,6 +120,16 @@ public class User {
         this.birthDate = birthDate;
         this.country = country;
         this.birthPlace = birthPlace;
+        this.profileDesc = profileDesc;
+        this.adress = adress;
+    }
+
+    public String getProfileDesc() {
+        return profileDesc;
+    }
+
+    public void setProfileDesc(String profileDesc) {
+        this.profileDesc = profileDesc;
     }
 
     @Override
@@ -118,11 +138,13 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
+                ", profileDesc='" + profileDesc + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", birthDate=" + birthDate +
-                ", nationality=" + country +
+                ", country=" + country +
                 ", birthPlace=" + birthPlace +
+                ", skills=" + skills +
                 '}';
     }
 }
